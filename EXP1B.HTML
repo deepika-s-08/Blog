@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MiniConnect</title>
+
+```
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #eef2f7;
+    }
+
+    /* LOGIN PAGE */
+    #loginPage {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1d9bf0, #7b2ff7);
+    }
+
+    .login-box {
+        background: white;
+        width: 350px;
+        padding: 35px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 20px #3335;
+    }
+
+    .logo {
+        font-size: 35px;
+        font-weight: bold;
+        color: #1d9bf0;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    button {
+        border: none;
+        padding: 10px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        background: #1d9bf0;
+        color: white;
+    }
+
+    .login-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    #error {
+        color: red;
+        font-size: 14px;
+    }
+
+    /* MAIN APP */
+    #app {
+        display: none;
+    }
+
+    header {
+        background: white;
+        padding: 12px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    header h2 {
+        color: #1d9bf0;
+        margin: 0;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1000px;
+        margin: 20px auto;
+        display: grid;
+        grid-template-columns: 220px 1fr 220px;
+        gap: 15px;
+    }
+
+    .card {
+        background: white;
+        padding: 18px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* PROFILE */
+    .profile {
+        text-align: center;
+    }
+
+    .avatar {
+        width: 75px;
+        height: 75px;
+        margin: auto;
+        background: #1d9bf0;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .profile h3 {
+        margin: 10px 0 2px;
+    }
+
+    .profile p {
+        color: #666;
+        margin: 0;
+    }
+
+    /* STATS */
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 15px;
+    }
+
+    .stats b {
+        display: block;
+        font-size: 20px;
+        color: #1d9bf0;
+    }
+
+    /* CREATE POST */
+    textarea {
+        width: 100%;
+        height: 75px;
+        resize: none;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+    }
+
+    .post-btn {
+        margin-top: 8px;
+    }
+
+    /* POSTS */
+    .post {
+        border-top: 1px solid #ddd;
+        padding: 12px 0;
+    }
+
+    .post:first-child {
+        border-top: none;
+    }
+
+    .post h3 {
+        margin: 0 0 5px;
+    }
+
+    .post p {
+        margin: 5px 0;
+    }
+
+    /* ACTIONS */
+    .actions {
+        margin-top: 8px;
+    }
+
+    .actions button {
+        background: transparent;
+        color: #555;
+        padding: 5px 8px;
+        margin-right: 5px;
+    }
+
+    .actions button:hover {
+        color: #1d9bf0;
+    }
+
+    /* FOLLOW */
+    .follow-btn {
+        width: 100%;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 15px 0;
+    }
+
+    /* MOBILE */
+    @media(max-width: 800px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+
+        .login-box {
+            width: 90%;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- LOGIN PAGE -->
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">MiniConnect</div>
+
+        <p>Connect. Share. Follow.</p>
+
+        <input type="text"
+               id="username"
+               placeholder="Enter username">
+
+        <input type="password"
+               id="password"
+               placeholder="Enter password">
+
+        <button class="login-btn" onclick="login()">
+            Login
+        </button>
+
+        <p id="error"></p>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN APPLICATION -->
+<div id="app">
+
+    <header>
+
+        <h2>MiniConnect</h2>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </header>
+
+
+    <div class="container">
+
+        <!-- LEFT PROFILE -->
+        <div>
+
+            <div class="card profile">
+
+                <div class="avatar">
+                    D
+                </div>
+
+                <h3 id="profileName">
+                    DEEPIKA
+                </h3>
+
+                <p>@DEEPI</p>
+
+                <div class="stats">
+
+                    <div>
+                        <b id="followers">125</b>
+                        Followers
+                    </div>
+
+                    <div>
+                        <b id="following">80</b>
+                        Following
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CENTER -->
+        <div>
+
+            <div class="card">
+
+                <h3>Create Post</h3>
+
+                <textarea id="postText"
+                    placeholder="What's happening?"></textarea>
+
+                <button class="post-btn" onclick="addPost()">
+                    Post
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Home</h3>
+
+                <div id="posts">
+
+                    <div class="post">
+
+                        <h3>Alex</h3>
+
+                        <p>
+                            Welcome to MiniConnect!
+                            This is my first post.
+                        </p>
+
+                        <div class="actions">
+
+                            <button onclick="likePost(this)">
+                                ❤️ Like <span>0</span>
+                            </button>
+
+                            <button onclick="commentPost()">
+                                💬 Comment
+                            </button>
+
+                            <button onclick="sharePost()">
+                                🔁 Share
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="post">
+
+                        <h3>Sarah</h3>
+
+                        <p>
+                            Learning web development
+                            is really interesting!
+                        </p>
+
+                        <div class="actions">
+
+                            <button onclick="likePost(this)">
+                                ❤️ Like <span>0</span>
+                            </button>
+
+                            <button onclick="commentPost()">
+                                💬 Comment
+                            </button>
+
+                            <button onclick="sharePost()">
+                                🔁 Share
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div>
+
+            <div class="card">
+
+                <h3>Who to Follow</h3>
+
+                <p><b>Arun</b></p>
+
+                <button class="follow-btn"
+                        onclick="followUser(this)">
+                    Follow
+                </button>
+
+                <hr>
+
+                <p><b>Priya</b></p>
+
+                <button class="follow-btn"
+                        onclick="followUser(this)">
+                    Follow
+                </button>
+
+                <hr>
+
+                <p><b>Rahul</b></p>
+
+                <button class="follow-btn"
+                        onclick="followUser(this)">
+                    Follow
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // FIXED USERNAME AND PASSWORD
+    const correctUsername = "BLOG";
+    const correctPassword = "2030";
+
+
+    // LOGIN
+    function login() {
+
+        let username =
+            document.getElementById("username").value.trim();
+
+        let password =
+            document.getElementById("password").value.trim();
+
+        let error =
+            document.getElementById("error");
+
+
+        if (username === correctUsername &&
+            password === correctPassword) {
+
+            document.getElementById("loginPage")
+                .style.display = "none";
+
+            document.getElementById("app")
+                .style.display = "block";
+
+            document.getElementById("profileName")
+                .innerText = username;
+
+            document.getElementById("avatar")
+                .innerText = username.charAt(0);
+
+            error.innerText = "";
+
+        } else {
+
+            error.innerText =
+                "Invalid username or password!";
+        }
+    }
+
+
+    // LOGOUT
+    function logout() {
+
+        document.getElementById("app")
+            .style.display = "none";
+
+        document.getElementById("loginPage")
+            .style.display = "flex";
+
+        document.getElementById("username")
+            .value = "";
+
+        document.getElementById("password")
+            .value = "";
+
+        document.getElementById("error")
+            .innerText = "";
+    }
+
+
+    // CREATE POST
+    function addPost() {
+
+        let text =
+            document.getElementById("postText")
+            .value.trim();
+
+        if (text === "") {
+
+            alert("Please write something!");
+            return;
+        }
+
+        let post =
+            document.createElement("div");
+
+        post.className = "post";
+
+        post.innerHTML = `
+            <h3>BLOG</h3>
+
+            <p>${text}</p>
+
+            <div class="actions">
+
+                <button onclick="likePost(this)">
+                    ❤️ Like <span>0</span>
+                </button>
+
+                <button onclick="commentPost()">
+                    💬 Comment
+                </button>
+
+                <button onclick="sharePost()">
+                    🔁 Share
+                </button>
+
+            </div>
+        `;
+
+        document.getElementById("posts")
+            .prepend(post);
+
+        document.getElementById("postText")
+            .value = "";
+    }
+
+
+    // LIKE
+    function likePost(button) {
+
+        let count =
+            button.querySelector("span");
+
+        count.innerText =
+            Number(count.innerText) + 1;
+    }
+
+
+    // FOLLOW
+    function followUser(button) {
+
+        let followers =
+            document.getElementById("followers");
+
+        if (button.innerText === "Follow") {
+
+            button.innerText = "Following";
+
+            followers.innerText =
+                Number(followers.innerText) + 1;
+
+        } else {
+
+            button.innerText = "Follow";
+
+            followers.innerText =
+                Number(followers.innerText) - 1;
+        }
+    }
+
+
+    // COMMENT
+    function commentPost() {
+
+        alert("Comment feature coming soon!");
+    }
+
+
+    // SHARE
+    function sharePost() {
+
+        alert("Post shared successfully!");
+    }
+
+</script>
+```
+
+</body>
+</html>
